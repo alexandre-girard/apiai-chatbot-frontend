@@ -1,0 +1,55 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+
+<dom-module id="entity-values">
+  <template>
+	<iron-ajax
+  		id="AjaxRequest"
+    	url={{url}}
+    	method="GET"    	
+    	content-type="application/json; charset=utf-8"
+    	handle-as="json"
+    	on-response="_handleResponse"
+    	last-response="last_response" 
+    	on-error="_handleAjaxPostError"
+    	debounce-duration="300"></iron-ajax>
+  
+	<ul>
+		<template is="dom-repeat" items={{entries}}>
+			<li>{{item.value}}</li>	
+		</template>
+	</ul>
+  </template>
+  <script>
+    Polymer({
+
+      is: 'entity-values',
+
+      properties: {
+    	  url : {
+    		  type : String,
+    		  computed: '_computeUrl(config)'    		  
+    	  },
+    	  intention : {
+    		  type : String,
+    		  observer : '_retrieveData'
+    	  }
+      },
+      _retrieveData : function(){
+    	  if(this.intention === "assistance_vehicule"){
+         	  if(this.$.AjaxRequest){
+         		  this.$.AjaxRequest.generateRequest();  
+         	  }    		  
+    	  }
+
+      },
+      _computeUrl : function(config){
+  	  	return config.chatbotUrl + "/entity/type_assistance_vehicule";
+      },
+      _handleResponse : function(data){
+    	  this.entries = data.detail.response.entries;
+      }
+    });
+  </script>
+</dom-module>

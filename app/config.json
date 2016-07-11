@@ -1,0 +1,6 @@
+{
+	"chatbotUrl" : "http://localhost:18107/chatbot-demo",
+	"assistanceUsers" : [
+		{"prenom" : "IMA Bot", "type" : "boot"}
+	]	
+}

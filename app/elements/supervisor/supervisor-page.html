@@ -1,0 +1,55 @@
+<dom-module id="supervisor-page">
+<template>
+
+	<paper-icon-button icon="menu" on-tap="_generateRequest"></paper-icon-button>
+	/*<span>[[conversations]]</span>*/
+	<iron-list items=[[conversations]] as="conversation">
+	      <template>
+			/*<span>[[conversation]]</span>--		        
+	      </template>
+    </iron-list>
+    
+    <template repeat="{{ key in conversations.keys }}">
+  		/<span>{{ conversations[key] }}</span>/
+	</template>
+	
+	<iron-ajax
+  		id="AjaxPost"
+    	url={{url}}
+    	method="GET"    	
+    	content-type="application/json; charset=utf-8"
+    	handle-as="json"
+    	on-response="_handleResponse"
+    	last-response="last_response" 
+    	on-error="_handleAjaxPostError"
+    	debounce-duration="300"></iron-ajax>
+</template>
+  <script>
+    Polymer({
+      is: 'supervisor-page',
+      properties: {
+    	url : {
+    		  type : String,
+    		  computed: '_computeUrl(config)'
+    	},
+    	conversations : {
+    		type : Array
+    	}
+      },
+      ready : function(){
+    	  this._generateRequest();
+      },
+      _generateRequest : function(){
+    	  this.$.AjaxPost.generateRequest();  
+      },
+      _computeUrl : function(config){
+    	  return config.chatbotUrl + "/supervisor/findLastMessage";
+      },
+      _handleResponse : function(data){
+    	  console.info(data.detail.response);
+    	  this.conversations = data.detail.response;
+      }
+    });
+  </script>
+
+</dom-module>

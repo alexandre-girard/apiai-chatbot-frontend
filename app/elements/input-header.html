@@ -1,0 +1,93 @@
+<!--
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<link rel="import" href="refresh-bahavior.html">
+
+<dom-module id="input-header">
+
+  <template>
+
+    <style>
+      .dropdown-content {
+        padding: 10px;
+      }
+    </style>
+
+	<iron-ajax
+  		id="AjaxPost"
+    	url={{url}}
+    	method="GET"    	
+    	content-type="application/json; charset=utf-8"
+    	handle-as="json"
+    	on-response="_handleResponse"
+    	last-response="last_response" 
+    	on-error="_handleAjaxPostError"
+    	debounce-duration="300"></iron-ajax>
+    	
+    <paper-toolbar>
+
+<!--       <paper-icon-button icon="icons:polymer"></paper-icon-button> -->
+<!--       <div class="title">{{label}}</div> -->
+	  <div></div>	
+	  <div>
+  		<paper-icon-button id="account-box" icon="account-box" alt="account-box"></paper-icon-button>
+  		<paper-badge for="account-box" label={{connectedUsers}}></paper-badge>
+	  </div>
+    </paper-toolbar>
+
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'input-header',
+      behaviors : [ RefreshBehavior ],
+      properties: {
+          // Delai de rafraichissement automatique.
+          refresh_delay : {
+              type : Number,
+              value : 5
+          },
+          url : {
+      		  type : String,
+      		  computed: '_computeUrl(config)'
+      	  },
+    	  connectedUsers : {
+    		type : Number,
+    		value : 0
+    	  },
+        label: {
+          type: String,
+          notify: true
+        }
+      },
+      ready : function(){
+    	this.generateRequest(); 
+      },
+      _computeUrl : function(config){
+    	  return config.chatbotUrl + "/supervisor/usersConnected";
+      },
+      generateRequest : function() {
+    	  this.$.AjaxPost.generateRequest();
+      },
+      _handleResponse : function(data){
+    	  if(data.detail){
+    		  this.connectedUsers = data.detail.response;
+    	  }
+      },
+      _handleAjaxPostError : function(){
+    	  this.connectedUsers = "";
+      }
+    });
+  </script>
+
+</dom-module>
+

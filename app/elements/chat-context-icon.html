@@ -1,0 +1,61 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
+
+<link rel="import" href="../bower_components/paper-tooltip/paper-tooltip.html">
+
+<link rel="import" href="../bower_components/iron-icons/maps-icons.html">
+<link rel="import" href="../bower_components/iron-icons/notification-icons.html">
+<link rel="import" href="../bower_components/iron-icons/device-icons.html">
+
+
+<dom-module id="chat-context-icon">
+  <template>
+  	<style is="custom-style">
+  		.big {
+    		--iron-icon-height: 32px;
+    		--iron-icon-width: 32px;
+  		}
+	</style>
+	
+   	<iron-icon id="icon" class="big" icon={{_iconType(context)}}></iron-icon>
+   	<paper-tooltip for="icon" position="right">[[context]]</paper-tooltip> 
+  </template>
+  <script>
+    Polymer({
+
+      is: 'chat-context-icon',
+
+      properties: {
+      },
+      _iconType: function(context) {
+    	  if(context === 'vehicule'){
+    		  return "maps:directions-car";    		  
+    	  }
+    	  
+    	  if(context === 'assistance'){
+    		  return "notification:phone-in-talk";    		  
+    	  }
+    	  
+    	  if(context === 'batterie'){
+    		  return "device:battery-charging-20";    		  
+    	  }
+    	  
+    	  if(context === 'moteur'){
+    		  return "notification:vibration";    		  
+    	  }
+
+    	  if(context === 'immatriculation'){
+    		  return "icons:credit-card";    		  
+    	  }
+    	  
+    	  if(context === 'assistance_vehicule_batterie_dialog_params_immatriculation'){
+    		  return "icons:credit-card";    		  
+    	  }
+    	  
+			
+    	  
+    	  return 'icons:help-outline';
+      }
+    });
+  </script>
+</dom-module>

@@ -1,0 +1,42 @@
+<!-- Polymer -->
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<script>
+	RefreshBehavior = {
+			properties:{
+				refresh_delay:{
+		      		type: Number,
+		      		notify: true,
+		      		value : 0,
+		      		observer : '_refreshDelayChanged'	
+		      	}
+			},
+		    // Initialisation du composant
+		    setup: function(){
+		    	if(this.refresh_delay && this.refresh_delay != 0){
+		    		this.refresh();
+		    	}else{
+		    		this.generateRequest();
+		    	}
+		    },
+		    // Action lorsque le refresh_delay change
+		    _refreshDelayChanged : function(){
+		    	if(this.refresh_delay && this.refresh_delay != 0){
+		    		this.refresh();
+		    	}else{
+		        	this.cancelAsync(this.idTask);
+		    	}
+		    },
+		    // Rafraichissement automatique du composant
+		    refresh: function(){
+		        this.generateRequest();
+		        if(this.refresh_delay && this.refresh_delay != 0){
+		        	var delay_ms = parseInt(this.refresh_delay) * 1000;
+		        	this.idTask =  this.async(this.refresh, delay_ms);
+		        }
+		    },
+		    generateRequest: function() {
+ 		    	console.info("Fonction à implémenter dans le composant");
+		    }
+	};
+</script>

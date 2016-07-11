@@ -1,0 +1,77 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+
+<link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
+
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
+
+<dom-module id="message-sender">
+	<style include="shared-styles">
+      :host {
+        display: block;
+        @apply(--layout-horizontal);
+      }
+    </style>
+	
+  <template>
+  	<iron-ajax
+  		id="AjaxPost"
+    	url="http://fadsi27m.ima.intra:8080/chat"
+    	method="POST"    	
+    	content-type="application/json; charset=utf-8"
+    	handle-as="json"
+    	on-response="_handleResponse"
+    	last-response="last_response" 
+    	on-error="_handleAjaxPostError"
+    	debounce-duration="300"></iron-ajax>
+  	<paper-input class="flex" label="Type message..." id="input" value="{{input}}" on-keyup="_checkKey"></paper-input>
+    <paper-fab icon="send" id="sendButton" on-tap="_sendMyMessage"></paper-fab>
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'message-sender',
+
+        properties: {
+          messages : {
+            type: Array,
+            notify: true
+          }
+        },
+        _checkKey : function(e) {
+            if(e.keyCode === 13 || e.charCode === 13) {
+              this._sendMyMessage();
+            }
+        },
+        _sendMyMessage : function() {
+        	console.info("_sendMyMessage");
+        	
+        	this.messages.push(this.input);
+        	this.notifyPath("messages", this.messages.slice());
+        	
+        	this.$.AjaxPost.body = this.input; //{ message : this.input };
+        	this.$.AjaxPost.generateRequest();
+        	
+        	this.input = '';
+        },
+        _handleResponse : function(data){
+//         	console.info("_handleResponse " + data.detail.response);
+//         	console.info(data.detail.response);
+        	this.messages.push(data.detail.response.result.speech);
+        	this.notifyPath("messages", this.messages.slice());
+        	
+        },
+        _handleAjaxPostError : function(e){
+        	console.info("_handleAjaxPostError");
+        	console.info(e);
+        }        
+      });
+    })();
+  </script>
+</dom-module>

@@ -1,0 +1,60 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="message-sender.html">
+<link rel="import" href="chat-message.html">
+
+
+<dom-module id="chat-component">
+  <template>
+	<style is="custom-style">
+  		.flex-vertical {
+    		@apply(--layout-vertical);
+    		height: 220px;
+  		}
+  		
+  		.flexchild-vertical {
+    		@apply(--layout-flex);
+    		@apply(--layout-vertical)
+    		overflow: auto;
+  		}
+  		
+	</style>
+
+	<div class="container flex-vertical">
+  		<div class="flexchild-vertical" style="width: 80%">
+  			<template is="dom-repeat" items="{{messages}}" as="message">
+  				<chat-message message={{message}}></chat-message>
+  			</template>
+  		
+  		</div>
+  		<div>
+  			<message-sender messages={{messages}}></message-sender>
+  		</div>
+	</div>
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'chat-component',
+
+        properties: {
+        	accessToken : {
+    			type : String,
+    			value : "9df9c85cc2eb486684204b02541d14cb" 
+    		},
+    		baseUrl : {
+    			type : String,
+    			value : "https://api.api.ai/v1/"    			
+    		},
+          	messages: {
+            	type: Array,
+            	value: []
+          	}
+        }
+      });
+    })();
+  </script>
+</dom-module>

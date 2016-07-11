@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+<head>
+
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+  <title>Démonstrateur Chatbot - version 05/07</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="import" href="elements/elements.html">
+
+  <style is="custom-style">
+  	:host {
+    	height: 100%;
+    }
+    
+    body {
+      margin: 0;
+      font-family: 'Roboto', 'Noto', sans-serif;
+      background-color: #eee;
+    }
+    
+    app-drawer-layout {
+    }
+    
+    app-toolbar {
+      background-color: #4285f4;
+      color: #fff;
+    }
+    app-drawer {
+      --app-drawer-scrim-background: rgba(0, 0, 100, 0.8);
+      --app-drawer-content-container: {
+        background-color: #B0BEC5;
+      }
+    }
+  </style>
+  
+</head>
+<body>
+	<!-- build:remove -->
+	<span id="browser-sync-binding"></span>
+	<!-- endbuild -->
+	<template is="dom-bind" id="app">
+		<iron-ajax url="threads.json" last-response="{{threads}}" auto></iron-ajax>
+    
+    	<iron-ajax url="config.json" last-response="{{config}}" auto></iron-ajax>
+		
+		<paper-drawer-panel drawer-width="300px">
+			<chat-context drawer chat={{chat}}></chat-context>
+<!-- 			<chat-room main user=[[user]] config=[[config]]></chat-room> -->
+			<chat-messager main user=[[user]] config=[[config]] chat={{chat}}></chat-messager>
+<!-- 			<iron-pages attr-for-selected="data-route" selected="{{route}}">  -->
+<!-- 				<section data-route="chat" tabindex="-1">  -->
+<!-- 						<chat-room user=[[user]] config=[[config]]></chat-room>  -->
+<!-- 				</section>  -->
+<!-- 				<section data-route="supervisor" tabindex="-1">  -->
+<!-- 					<supervisor-page config=[[config]]></supervisor-page>	  -->
+<!-- 				</section>				  -->
+<!-- 			</iron-pages>			  -->
+		
+		</paper-drawer-panel>
+
+
+<!-- 		<app-drawer-layout fullbleed force-narrow > -->
+<!-- 			<app-drawer id="menuDrawer" swipe-open> -->
+<!-- 				<a href="chat"> -->
+<!--     				<paper-icon-button icon="perm-media"></paper-icon-button>Chat -->
+<!--         		</a> -->
+<!-- 				<a href="supervisor"> -->
+<!--     				<paper-icon-button icon="perm-media"></paper-icon-button>Supervision -->
+<!--         		</a>        		 -->
+<!-- 			</app-drawer> -->
+<!-- 			<app-header-layout> -->
+<!-- 		    	<app-header fixed shadow> -->
+<!-- 		    		<app-toolbar> -->
+<!--     					<paper-icon-button icon="menu" on-tap="openDrawer"></paper-icon-button> -->
+<!--     					<div main-title>Polymer chatbot Demo</div> -->
+<!--     					<span style="flex: 1;"></span> -->
+<!--     					<paper-icon-button id="icon" icon="account-box"></paper-icon-button> -->
+<!--     					<paper-badge for="icon" label="25"></paper-badge>						 -->
+<!-- 					</app-toolbar> -->
+<!-- 				</app-header> -->
+<!-- 			</app-header-layout> -->
+<!-- 			<iron-pages attr-for-selected="data-route" selected="{{route}}">  -->
+<!-- 				<section data-route="chat" tabindex="-1">  -->
+<!-- 						<chat-room user=[[user]] config=[[config]]></chat-room>  -->
+<!-- 				</section>  -->
+<!-- 				<section data-route="supervisor" tabindex="-1">  -->
+<!-- 					<supervisor-page config=[[config]]></supervisor-page>	  -->
+<!-- 				</section>				  -->
+<!-- 			</iron-pages>			  -->
+<!-- 		</app-drawer-layout> -->
+	</template>
+
+  	<!-- build:js scripts/app.js -->
+  	<script src="scripts/app.js"></script>
+  	<!-- endbuild-->
+</body>
+</html>

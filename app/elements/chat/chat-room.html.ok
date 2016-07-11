@@ -1,0 +1,130 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+
+<link rel="import" href="../../bower_components/paper-tooltip/paper-tooltip.html">
+
+<link rel="import" href="../../bower_components/iron-icons/maps-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/social-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/hardware-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/image-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/notification-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/device-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/av-icons.html">
+
+<link rel="import" href="chat-messager.html">
+
+<dom-module id="chat-room">
+	<template>
+		<style is="custom-style">
+			:host {
+				height: 100%;
+			}
+			
+		  .flex-horizontal {
+		    @apply(--layout-horizontal);
+		    height: 100%;
+		  }
+		  .flexchild {
+		    @apply(--layout-flex);
+		    background-color: white;
+		    z-index: 99;
+		    height: 100%
+		  }
+		  
+		  
+		  .context {
+		  	width: 250px;
+		  }
+		  
+		  .parameter {
+		  	width: 250px;
+		  }		  
+		  
+		.big {
+    		--iron-icon-height: 32px;
+    		--iron-icon-width: 32px;
+  		}
+  		
+		
+		</style>
+		
+		<div class="container flex-horizontal">
+			<div class="context">
+				<span>{{chat.intention}}</span>
+				<span>{{chat.action}}</span>
+				<template is="dom-repeat" items="{{chat.contexts}}">
+        			<span>{{item.name}}</span>
+        		</template>
+			</div>
+		  	<div class="flexchild">
+		  		<chat-messager user=[[user]] config=[[config]] chat={{chat}}></chat-messager>
+			</div>
+		  <div class="parameter">
+		  	<template is="dom-if" if="{{chat.parameters.typeVehicule}}">
+		  		<iron-icon id="typeVehicule" class="big" icon={{_iconTypeVehicule(chat.parameters.typeVehicule)}}></iron-icon>
+   				<paper-tooltip for="typeVehicule" position="right">[[chat.parameters.typeVehicule]]</paper-tooltip>
+   				<template is="dom-if" if="{{chat.parameters.typeProbleme}}">
+		  			<iron-icon id="icon" icon="image:navigate-next"></iron-icon>
+		  			<iron-icon id="typeProbleme" class="big" icon={{_iconTypeProbleme(chat.parameters.typeProbleme)}}></iron-icon>
+   					<paper-tooltip for="typeProbleme" position="right">[[chat.parameters.typeProbleme]]</paper-tooltip>
+		  		</template>
+		  	</template>
+		  	<template is="dom-if" if="{{chat.parameters.typeAideDomicile}}">
+		  		<iron-icon id="typeAideDomicile" class="big" icon="social:person-add"></iron-icon>
+   				<paper-tooltip for="typeAideDomicile" position="right">[[chat.parameters.typeAideDomicile]]</paper-tooltip>		  	
+		  	</template>
+		  	
+		  	
+		  	<template is="dom-if" if="{{chat.parameters.numeroImmatriculation}}">
+		  		<paper-input label="Immatriculation véhicule" value="{{chat.parameters.numeroImmatriculation}}" disabled></paper-input>
+		  	</template>
+		  	<template is="dom-if" if="{{chat.parameters.nomSocietaire}}">
+		  		<paper-input label="Nom" value="{{chat.parameters.nomSocietaire}}" disabled></paper-input>
+		  	</template>		  	
+		  	<template is="dom-if" if="{{chat.parameters.prenomSocietaire}}">
+		  		<paper-input label="Prénom" value="{{chat.parameters.prenomSocietaire}}" disabled></paper-input>
+		  	</template>		  	
+		  	<template is="dom-if" if="{{chat.parameters.numeroSocietaire}}">
+		  		<paper-input label="Numéro sociétaire" value="{{chat.parameters.numeroSocietaire}}" disabled></paper-input>
+		  	</template>		  	
+		  </div>
+		</div>
+	</template>
+</dom-module>
+
+<script>
+    Polymer({
+      is: 'chat-room',
+      properties: {
+      },
+      _iconTypeVehicule: function(typeVehicule) {
+    	  if(typeVehicule === 'voiture'){
+    		  return "maps:directions-car";    		  
+    	  }
+    	  if(typeVehicule === 'deux-roues'){
+    		  return "icons:motorcycle";    		  
+    	  }
+    	  if(typeVehicule === 'camion'){
+    		  return "maps:local-shipping";    		  
+    	  }    	  
+    	  
+    	  return 'icons:help-outline';
+      },
+      _iconTypeProbleme: function(typeProbleme) {
+    	  if(typeProbleme === 'batterie'){
+    		  return "device:battery-alert";    		  
+    	  }
+    	  if(typeProbleme === 'moteur'){
+    		  return "hardware:memory";    		  
+    	  }
+    	  
+    	  if(typeProbleme === 'témoins tableau de bord'){
+    		  return "av:surround-sound";    		  
+    	  }
+    	  
+    	  return 'icons:help-outline';
+      }      
+    });
+</script>

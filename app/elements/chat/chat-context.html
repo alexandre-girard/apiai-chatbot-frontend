@@ -1,0 +1,130 @@
+
+<link rel="import" href="../../bower_components/iron-collapse/iron-collapse.html">
+
+<dom-module id="chat-context">
+	<template>
+		<paper-toolbar>
+			<paper-icon-button icon="inbox" id="inbox" on-click="toggle"></paper-icon-button>
+      			<div class="title">Démonstrateur Chatbot</div>
+    	</paper-toolbar>
+    	<iron-collapse id="collapse">
+    	<paper-item>
+          <paper-item-body>
+            <div>
+            	<b>Action :</b><br />
+            	<span>{{chat.action}}</span><br />
+            	<b>Intention :</b><br />
+            	<span>{{chat.intention}}</span><br />
+            	<b>Contexte(s) :</b><br />
+            	<template is="dom-repeat" items="{{chat.contexts}}">
+        			<span>{{item.name}}</span>
+        		</template>
+            </div>
+          </paper-item-body>
+        </paper-item>
+        </iron-collapse>
+        <paper-item>
+          <paper-item-body>
+        	<div class="parameter">
+			  	<template is="dom-if" if="{{chat.parameters.typeVehicule}}">
+			  		<iron-icon id="typeVehicule" class="big" icon={{_iconTypeVehicule(chat.parameters.typeVehicule)}}></iron-icon>
+	   				<paper-tooltip for="typeVehicule" position="right">[[chat.parameters.typeVehicule]]</paper-tooltip>
+	   				<template is="dom-if" if="{{chat.parameters.typeAssistance}}">
+			  			<iron-icon id="icon" icon="image:navigate-next"></iron-icon>
+			  			<iron-icon id="typeProbleme" class="big" icon={{_iconTypeProbleme(chat.parameters.typeAssistance)}}></iron-icon>
+	   					<paper-tooltip for="typeProbleme" position="right">[[chat.parameters.typeAssistance]]</paper-tooltip>
+			  		</template>
+			  	</template>
+			  	<template is="dom-if" if="{{chat.parameters.typeAideDomicile}}">
+			  		<iron-icon id="typeAideDomicile" class="big" icon="social:person-add"></iron-icon>
+	   				<paper-tooltip for="typeAideDomicile" position="right">[[chat.parameters.typeAideDomicile]]</paper-tooltip>		  	
+			  	</template>
+			  	
+			  	
+			  	<template is="dom-if" if="{{chat.parameters.numeroImmatriculation}}">
+			  		<paper-input label="Immatriculation véhicule" value="{{chat.parameters.numeroImmatriculation}}" disabled></paper-input>
+			  	</template>
+			  	<template is="dom-if" if="{{chat.parameters.adresse}}">
+			  		<paper-input label="Adresse" value="{{chat.parameters.adresse}}" disabled></paper-input>
+			  	</template>		  	
+			  	<template is="dom-if" if="{{chat.parameters.nomSocietaire}}">
+			  		<paper-input label="Nom du bénéficiaire" value="{{chat.parameters.nomSocietaire}}" disabled></paper-input>
+			  	</template>		  	
+			  	<template is="dom-if" if="{{chat.parameters.prenomSocietaire}}">
+			  		<paper-input label="Prénom" value="{{chat.parameters.prenomSocietaire}}" disabled></paper-input>
+			  	</template>		  	
+			  	<template is="dom-if" if="{{chat.parameters.numeroSocietaire}}">
+			  		<paper-input label="Numéro sociétaire" value="{{chat.parameters.numeroSocietaire}}" disabled></paper-input>
+			  	</template>
+			</div>
+		</paper-item-body>
+		</paper-item>
+	</template>
+	<script>
+    	Polymer({
+			is: 'chat-context',
+			properties: {
+      		},
+            _iconTypeVehicule: function(typeVehicule) {
+            	  if(typeVehicule === 'véhicule'){
+              		  return "maps:directions-car";    		  
+              	  }
+            	  if(typeVehicule === 'voiture'){
+          		  	return "maps:directions-car";
+          		  }
+            	  if(typeVehicule === 'deux-roues'){
+            		  return "icons:motorcycle";
+            	  }
+          	  	  if(typeVehicule === 'camion'){
+          		  	return "maps:local-shipping";    		  
+          	  	  }    	  
+          	  
+          	  	return 'icons:help-outline';
+            },
+            _iconTypeProbleme: function(typeProbleme) {
+          	  if(typeProbleme === 'de batterie'){
+          		  return "device:battery-alert";    		  
+          	  }
+          	  if(typeProbleme === 'de moteur'){
+          		  return "hardware:memory";    		  
+          	  }
+          	  
+          	  if(typeProbleme === 'de témoin d\'alerte'){
+          		  return "av:surround-sound";    		  
+          	  }
+          	  
+          	  if(typeProbleme === 'de boîte de vitesses'){
+          		  return "device:gps-off";    		  
+          	  }
+          	  if(typeProbleme === 'de clés'){
+          		  return "communication:vpn-key";    		  
+          	  }
+          	
+          	  if(typeProbleme === 'de crevaison'){
+          		  return "icons:all-out";    		  
+          	  }
+
+          	  if(typeProbleme === 'de panne sèche'){
+          		  return "maps:local-gas-station";    		  
+          	  }
+
+          	  if(typeProbleme === 'technique'){
+          		  return "icons:settings";    		  
+          	  }
+          	  if(typeProbleme === 'mécanique'){
+          		  return "icons:settings";    		  
+          	  }
+          	  
+          	if(typeProbleme === 'accident'){
+          	  return "notification:do-not-disturb";
+          	}
+          	
+          	  return 'icons:help-outline';
+            },
+            toggle: function() {
+              this.$.collapse.toggle();
+            }
+		});
+  </script>
+  
+</dom-module>
