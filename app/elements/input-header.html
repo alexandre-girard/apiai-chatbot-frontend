@@ -33,14 +33,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     	debounce-duration="300"></iron-ajax>
     	
     <paper-toolbar>
-
-<!--       <paper-icon-button icon="icons:polymer"></paper-icon-button> -->
-<!--       <div class="title">{{label}}</div> -->
-	  <div></div>	
-	  <div>
   		<paper-icon-button id="account-box" icon="account-box" alt="account-box"></paper-icon-button>
   		<paper-badge for="account-box" label={{connectedUsers}}></paper-badge>
-	  </div>
+  		<span class="title"></span>
+  		<paper-icon-button icon="refresh" on-tap="_reset"></paper-icon-button>
     </paper-toolbar>
 
   </template>
@@ -85,6 +81,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       _handleAjaxPostError : function(){
     	  this.connectedUsers = "";
+      },
+      _generateId : function (length) {
+  		var text = "";
+       	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+       	for (var i = 0; i < length; i++) {
+          	text += possible.charAt(Math.floor(Math.random() * possible.length));
+       	}
+       
+       	return text;
+	  },
+      _reset : function(){
+    	this.splice('chat.messages', 0);
+	   	this.set('chat.intention', "");
+      	this.set('chat.action', "");
+      	this.splice('chat.contexts', 0);
+      	this.set('chat.parameters', "");
+      	
+      	this.sessionId = this._generateId(32);
       }
     });
   </script>
