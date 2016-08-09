@@ -41,7 +41,7 @@ This lets you run `gulp` and `bower` from the command line.
 4)  Install the `npm` and `bower` dependencies.
 
 ```sh
-cd polymer-starter-kit && npm install && bower install
+cd apiai-chatbot-frontend && npm install && bower install
 ```
 
 This installs the element sets (Paper, Iron, Platinum) and tools requires to build and serve apps.
