@@ -10,6 +10,9 @@
 
 <script src="../../bower_components/latinize/latinize.js"></script>
 
+<link rel="import" href="html-echo.html">
+
+
 <dom-module id="chat-messager">
 
   <template>
@@ -74,7 +77,9 @@
     			<div class$="avatar {{item.user.type}}" item-icon></div>
     			<paper-item-body two-line>
 	      			<div>{{item.user.prenom}}</div>
-	      			<div class="message" secondary>{{item.text}}</div>
+	      			<div class="message" secondary>
+	      				<html-echo html="{{item.text}}"></html-echo>
+	      			</div>
     			</paper-item-body>
   			</paper-icon-item>
 		        
