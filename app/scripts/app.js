@@ -19,7 +19,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   app.baseUrl = '/';
   
   app.user = {
-	"prenom" : "vous",
+	"prenom" : "Sociétaire",
 	"type" : "human"
   };
   

@@ -29,23 +29,25 @@
 			  	<template is="dom-if" if="{{chat.parameters.typeVehicule}}">
 			  		<iron-icon id="typeVehicule" class="big" icon={{_iconTypeVehicule(chat.parameters.typeVehicule)}}></iron-icon>
 	   				<paper-tooltip for="typeVehicule" position="right">[[chat.parameters.typeVehicule]]</paper-tooltip>
-	   				<template is="dom-if" if="{{chat.parameters.typeAssistance}}">
-			  			<iron-icon id="icon" icon="image:navigate-next"></iron-icon>
-			  			<iron-icon id="typeProbleme" class="big" icon={{_iconTypeProbleme(chat.parameters.typeAssistance)}}></iron-icon>
-	   					<paper-tooltip for="typeProbleme" position="right">[[chat.parameters.typeAssistance]]</paper-tooltip>
-			  		</template>
 			  	</template>
+   				<template is="dom-if" if="{{chat.parameters.typeAssistance}}">
+   					<template is="dom-if" if="{{chat.parameters.typeVehicule}}">
+		  				<iron-icon id="icon" icon="image:navigate-next"></iron-icon>
+		  			</template>
+		  			<iron-icon id="typeProbleme" class="big" icon={{_iconTypeProbleme(chat.parameters.typeAssistance)}}></iron-icon>
+   					<paper-tooltip for="typeProbleme" position="right">[[chat.parameters.typeAssistance]]</paper-tooltip>
+		  		</template>
+			  	
 			  	<template is="dom-if" if="{{chat.parameters.typeAideDomicile}}">
 			  		<iron-icon id="typeAideDomicile" class="big" icon="social:person-add"></iron-icon>
 	   				<paper-tooltip for="typeAideDomicile" position="right">[[chat.parameters.typeAideDomicile]]</paper-tooltip>		  	
 			  	</template>
 			  	
-			  	
 			  	<template is="dom-if" if="{{chat.parameters.numeroImmatriculation}}">
 			  		<paper-input label="Immatriculation véhicule" value="{{chat.parameters.numeroImmatriculation}}" disabled></paper-input>
 			  	</template>
 			  	<template is="dom-if" if="{{chat.parameters.adresse}}">
-			  		<paper-input label="Adresse" value="{{chat.parameters.adresse}}" disabled></paper-input>
+			  		<paper-input label="Localisation du véhicule" value="{{chat.parameters.adresse}}" disabled></paper-input>
 			  	</template>		  	
 			  	<template is="dom-if" if="{{chat.parameters.nomSocietaire}}">
 			  		<paper-input label="Nom du bénéficiaire" value="{{chat.parameters.nomSocietaire}}" disabled></paper-input>
@@ -55,6 +57,9 @@
 			  	</template>		  	
 			  	<template is="dom-if" if="{{chat.parameters.numeroSocietaire}}">
 			  		<paper-input label="Numéro sociétaire" value="{{chat.parameters.numeroSocietaire}}" disabled></paper-input>
+			  	</template>
+				<template is="dom-if" if="{{chat.parameters.blesse}}">
+			  		<paper-input label="Blessé" value="{{chat.parameters.blesse}}" disabled></paper-input>
 			  	</template>
 			</div>
 		</paper-item-body>
