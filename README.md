@@ -1,4 +1,4 @@
-![](https://cloud.githubusercontent.com/assets/110953/7877439/6a69d03e-0590-11e5-9fac-c614246606de.png)
+![](https://lh5.googleusercontent.com/-w7PdRyvTPs8/UyxaHFyAZeI/AAAAAAAAANQ/KxyFYQ6u5-8/w1118-h224-no/slide1.png)
 ## Polymer Starter Kit
 
 > A starting point for building web applications with Polymer 1.0
